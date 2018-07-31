@@ -4,6 +4,7 @@
 import os
 import unittest
 import coverage
+import datetime
 
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -65,7 +66,23 @@ def drop_db():
 @manager.command
 def create_admin():
     """Creates the admin user."""
-    db.session.add(User("ad@min.com", "admin"))
+    db.session.add(User(
+        driverName = "Eduardo",
+        carPrice = 30000,
+        medianConsumption = 13,
+        medianDistance = 20,
+        gasPrice = 4.2,
+        taxesPrice = 2000,
+        maintenancePrice = 1500,
+        securePrice = 2000,
+        penaltiesPrice = 200,
+        parkingPrice = 0,
+        email = "ad@min.com", 
+        password = "admin",
+        admin = True,
+        confirmed = True,
+        confirmed_on = datetime.datetime.now())
+    )
     db.session.commit()
 
 

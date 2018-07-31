@@ -1,9 +1,11 @@
 {% extends "_base.html" %}
 {% block content %}
 
-<h1>Então você está na dúvida quanto ao que vai sair <b>mais barato</b>, manter um <b>carro</b> ou se locomover pela cidade por meio de <b>aplicativos de transporte individual?</b></h1>
+<div id="header" class="container">
+  <h1>Então você está na dúvida quanto ao que vai sair <b>mais barato</b>, manter um <b>carro</b> ou se locomover pela cidade por meio de <b>aplicativos de transporte individual?</b></h1>
 
-<h3>Para que possamos chegar a uma resposta para essa pergunta precisamos que você preencha os campos abaixo:</h3>
+  <h3>Para que possamos chegar a uma resposta para essa pergunta precisamos que você preencha os campos abaixo:</h3>
+</div>
 
 <br>
 
@@ -11,50 +13,41 @@
   <form class="form-signin" role="form" method="post" action="">
     {{ form.csrf_token }}
     
-    <div id="aboutThePerson" class="login-panel panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Sobre você</h3>
-      </div>
-      
-      <div class="panel-body">
-        <h4>Antes de começarmos, qual o seu nome?</h4>
-        {{ form.driverName(placeholder="") }}
-        <br>
-      </div>
-
-    </div>
-
-    <br>
-
     <div id="aboutTheCar" class="login-panel panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Sobre o seu carro</h3>
       </div>
-      
+
       <div class="panel-body">
+        <h4>Qual a marca?</h4>
+        {{ form.carBrand(placeholder="carBrand") }}
+        <br>
+        
+        <h4>E o modelo?</h4>
+        {{ form.carName(placeholder="carName") }}
+        <br>
+
         <h4>Atualmente, quanto ele custa?</h4>
-        {{ form.carPrice(placeholder="")}}
+        {{ form.carPrice(placeholder="carPrice")}}
         <br> 
 
-        <h4>E qual o consumo médio (km/l) no dia-a-dia?</h4>
+        <h4>E qual o consumo médio (km/l) no dia-a-dia da cidade?</h4>
         {{ form.medianConsumption(placerholder="")}}
         <br>
 
         <h4>Quantos kilometros por dia você costuma andar, em média?</h4>
         {{ form.medianDistance(placerholder="")}}
         <br>
-
       </div>
 
     </div>
 
     <div id="aboutTheCosts" class="login-panel panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Sobre o seu carro</h3>
+        <h3 class="panel-title">Sobre os seus gastos com o carro</h3>
       </div>
 
       <div class="panel-body">
-
         <h4>Quanto está custando o litro da gasolina na sua cidade?</h4>
         {{ form.gasPrice(placerholder="")}}
         <br>
@@ -81,39 +74,38 @@
       </div>
     </div>
 
-    <div id="lastPart" class="login-panel panel panel-default">
+    <div id="aboutThePerson" class="login-panel panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Finalmente chegamos ao fim! Estamos processando as suas informações e lhe encaminharemos o resultado da estimativa de quanto você gasta com seu carro e quanto passaria a gastar utilizando plataformas como Táxi, Uber, Cabify ou 99.</h3> 
-        <h4> Para que possa recebê-lo, precisamos dos seguintes dados:</h4>
+        <h3 class="panel-title">Sobre você</h3>
       </div>
 
       <div class="panel-body">
-  
-        <h4>Qual o seu email?</h4>
-        {{ form.email(placeholder="email") }}
-          <span class="error">
-            {% if form.email.errors %}
-              {% for error in form.email.errors %}
-                {{ error }}
-              {% endfor %}
-            {% endif %}
-          </span>
-      </div>
-    </div>
+        <h4>Qual o seu nome?</h4>
+        {{ form.driverName(placeholder="") }}
+        <br>
 
-  
-    <p>
-    {{ form.password(placeholder="password") }}
-      <span class="error">
-        {% if form.password.errors %}
-          {% for error in form.password.errors %}
-            {{ error }}
-          {% endfor %}
-        {% endif %}
-      </span>
-    </p>
-    <p>
-    {{ form.confirm(placeholder="confirm") }}
+        <h4>Qual o seu email?</h4>
+        {{ form.email(placeholder="") }}
+        <span class="error">
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+        <br>
+
+        <h4>Qual o seu telefone?</h4>
+        {{ form.confirm(placeholder="") }}
+        <span class="error">
+          {% if form.confirm.errors %}
+            {% for error in form.confirm.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+
+        {{ form.confirm(placeholder="confirm") }}
       <span class="error">
         {% if form.confirm.errors %}
           {% for error in form.confirm.errors %}
@@ -121,12 +113,18 @@
           {% endfor %}
         {% endif %}
       </span>
-    </p>
-    <button class="btn btn-success" type="submit">Register!</button>
-    <br><br>
-    <p>Already have an account? <a href="/login">Sign in</a>.</p>
-  </form>
 
+      </div>
+
+    </div>
+
+
+   
+<br>
+    <button class="btn btn-success" type="submit">Enviar!</button>
+    <br><br>
+
+  </form>
 </div>
 
 {% endblock %}
