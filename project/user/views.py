@@ -31,8 +31,8 @@ user_blueprint = Blueprint('user', __name__,)
 #### routes ####
 ################
 
-@user_blueprint.route('/register', methods=['GET', 'POST'])
-def register():
+@user_blueprint.route('/calculator', methods=['GET', 'POST'])
+def calculator():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
         user = User(
@@ -70,9 +70,9 @@ def register():
         login_user(user)
         flash('A confirmation email has been sent via email', 'success')
 
-        return redirect(url_for('user.register'))
+        return redirect(url_for('user.calculator'))
 
-    return render_template('user/register.html', form=form)
+    return render_template('user/calculator.html', form=form)
 
 
 @user_blueprint.route('/login', methods=['GET', 'POST'])

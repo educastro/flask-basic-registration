@@ -24,7 +24,7 @@
         {% if current_user.is_authenticated() %}
           <li><a href="{{ url_for('user.logout') }}">Logout</a></li>
         {% else %}
-          <li><a href="{{ url_for('user.register') }}">Quem fez esse site?</a></li>
+          <li><a href="{{ url_for('user.calculator') }}">Quem fez esse site?</a></li>
           <!-- <li><a href="{{ url_for('user.login') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a></li> -->
         {% endif %}
       </ul>
