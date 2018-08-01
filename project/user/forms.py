@@ -81,8 +81,8 @@ class RegisterForm(Form):
             return False
         user = User.query.filter_by(email=self.email.data).first()
         if user:
-            self.email.errors.append("Email already registered")
-            return False
+            #self.email.errors.append("Email already registered")
+            return True
         return True
 
 
