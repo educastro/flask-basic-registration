@@ -17,47 +17,47 @@ class RegisterForm(Form):
         validators=[DataRequired(), Length(min=3,max=50)]
     )
 
-    carPrice = FloatField(
+    carPrice = TextField(
         'carPrice',
         validators=[DataRequired()]
     )
 
-    medianConsumption = FloatField(
+    medianConsumption = TextField(
         'medianConsumption',
         validators=[DataRequired()]
     )
 
-    medianDistance = FloatField(
+    medianDistance = TextField(
         'medianDistance',
         validators=[DataRequired()]
     )
 
-    gasPrice = FloatField(
+    gasPrice = TextField(
         'gasPrice',
         validators=[DataRequired()]
     )
 
-    taxesPrice = FloatField(
+    taxesPrice = TextField(
         'taxesPrice',
         validators=[DataRequired()]
     )
 
-    maintenancePrice = FloatField(
+    maintenancePrice = TextField(
         'maintenancePrice',
         validators=[DataRequired()]
     )
 
-    securePrice = FloatField(
+    securePrice = TextField(
         'securePrice',
         validators=[DataRequired()]
     )
 
-    penaltiesPrice = FloatField(
+    penaltiesPrice = TextField(
         'penaltiesPrice',
         validators=[DataRequired()]
     )
 
-    parkingPrice = FloatField(
+    parkingPrice = TextField(
         'parkingPrice',
         validators=[DataRequired()]
     )

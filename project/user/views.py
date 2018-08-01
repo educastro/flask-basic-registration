@@ -37,15 +37,15 @@ def calculator():
     if form.validate_on_submit():
         user = User(
             driverName=form.driverName.data,
-            carPrice=form.carPrice.data,
-            medianConsumption=form.medianConsumption.data,
-            medianDistance=form.medianDistance.data,
-            gasPrice=form.gasPrice.data,
-            taxesPrice=form.taxesPrice.data,
-            maintenancePrice=form.maintenancePrice.data,
-            securePrice=form.securePrice.data,
-            penaltiesPrice=form.penaltiesPrice.data,
-            parkingPrice=form.parkingPrice.data,
+            carPrice=form.carPrice.data.replace(",","."),
+            medianConsumption=form.medianConsumption.data.replace(",","."),
+            medianDistance=form.medianDistance.data.replace(",","."),
+            gasPrice=form.gasPrice.data.replace(",","."),
+            taxesPrice=form.taxesPrice.data.replace(",","."),
+            maintenancePrice=form.maintenancePrice.data.replace(",","."),
+            securePrice=form.securePrice.data.replace(",","."),
+            penaltiesPrice=form.penaltiesPrice.data.replace(",","."),
+            parkingPrice=form.parkingPrice.data.replace(",","."),
             email=form.email.data,
             password="test",
             confirmed=False
@@ -53,11 +53,48 @@ def calculator():
         db.session.add(user)
         db.session.commit()
 
+        car_annualDepreciation = round(((8 * float(user.carPrice))/100),2)
+        car_annualSpendWithGasoline = round(((((float(user.medianDistance)/float(user.medianConsumption))*float(user.gasPrice))*30)*12),2)
+        car_annualSpendWithParking = round((float(user.parkingPrice)*12),2)
+        car_annualCost = round((car_annualSpendWithGasoline + car_annualSpendWithParking + float(user.penaltiesPrice) + float(user.maintenancePrice) + float(user.taxesPrice) + float(user.securePrice) + car_annualDepreciation),2)
+        car_annualOpportunityCost = round(((float(user.carPrice) + car_annualCost) * (6.5/100)),2)
+        car_annualSpendTotal = round((car_annualCost + car_annualOpportunityCost),2)
 
-        annualSpendWithTheCar = user.medianConsumption
-        annualSpendWithUber = user.gasPrice
+        uber_baseFare = 2.70
+        uber_fixedCost = 1.00
+        uber_costPerMinute = 0.18
+        uber_costPerKM = 1.25
+        uber_distancePerRun = round((float(user.medianDistance)/2),2)
+        uber_timePerRun = round(((uber_distancePerRun * 60)/60),2)
+        uber_dailyCost = round(((uber_baseFare + uber_fixedCost + (uber_costPerMinute * uber_timePerRun) + (uber_costPerKM * uber_distancePerRun))*2),2)
+        uber_monthlyCost = round((uber_dailyCost * 30),2)
+        uber_annualCost = round((uber_monthlyCost * 12),2) 
+        uber_totalCost = round((uber_annualCost - car_annualOpportunityCost),2)
 
-        html = render_template('user/activate.html', personName=user.driverName, annualSpendWithTheCar=annualSpendWithTheCar, annualSpendWithUber=annualSpendWithUber)
+        taxi_baseFare = 0
+        taxi_fixedCost = 5.24
+        taxi_costPerMinute = 0.53
+        taxi_costPerKM = 2.85
+        taxi_distancePerRun = round((float(user.medianDistance)/2),2)
+        taxi_timePerRun = round(((taxi_distancePerRun * 60)/60),2)
+        taxi_dailyCost = round(((taxi_baseFare + taxi_fixedCost + (taxi_costPerMinute * taxi_timePerRun) + (taxi_costPerKM * taxi_distancePerRun))*2),2)
+        taxi_monthlyCost = round((taxi_dailyCost * 30),2)
+        taxi_annualCost = round((taxi_monthlyCost * 12),2) 
+        taxi_totalCost = round((taxi_annualCost - car_annualOpportunityCost),2)
+
+        taxi99_baseFare = 0
+        taxi99_fixedCost = 2.38
+        taxi99_costPerMinute = 0.19
+        taxi99_costPerKM = 1.14
+        taxi99_distancePerRun = round((float(user.medianDistance)/2),2)
+        taxi99_timePerRun = round(((taxi99_distancePerRun * 60)/60),2)
+        taxi99_dailyCost = round(((taxi99_baseFare + taxi99_fixedCost + (taxi99_costPerMinute * taxi99_timePerRun) + (taxi99_costPerKM * taxi99_distancePerRun))*2),2)
+        taxi99_monthlyCost = round((taxi99_dailyCost * 30),2)
+        taxi99_annualCost = round((taxi99_monthlyCost * 12),2) 
+        taxi99_totalCost = round((taxi99_annualCost - car_annualOpportunityCost),2)
+
+        html = render_template('user/debug.html', driverName = user.driverName, carPrice = user.carPrice, medianConsumption = user.medianConsumption, medianDistance = user.medianDistance, gasPrice = user.gasPrice, taxesPrice = user.taxesPrice, maintenancePrice = user.maintenancePrice, securePrice = user.securePrice, penaltiesPrice = user.penaltiesPrice, parkingPrice = user.parkingPrice, email = user.email, car_annualDepreciation = car_annualDepreciation, car_annualSpendWithGasoline = car_annualSpendWithGasoline, car_annualSpendWithParking = car_annualSpendWithParking, car_annualCost = car_annualCost, car_annualOpportunityCost = car_annualOpportunityCost, car_annualSpendTotal = car_annualSpendTotal, uber_baseFare = uber_baseFare, uber_fixedCost = uber_fixedCost, uber_costPerMinute = uber_costPerMinute, uber_costPerKM = uber_costPerKM, uber_distancePerRun = uber_distancePerRun, uber_timePerRun = uber_timePerRun, uber_dailyCost = uber_dailyCost, uber_monthlyCost = uber_monthlyCost, uber_annualCost = uber_annualCost, uber_totalCost = uber_totalCost, taxi_baseFare = taxi_baseFare, taxi_fixedCost = taxi_fixedCost, taxi_costPerMinute = taxi_costPerMinute, taxi_costPerKM = taxi_costPerKM, taxi_distancePerRun = taxi_distancePerRun, taxi_timePerRun = taxi_timePerRun, taxi_dailyCost = taxi_dailyCost, taxi_monthlyCost = taxi_monthlyCost, taxi_annualCost = taxi_annualCost, taxi_totalCost = taxi_totalCost, taxi99_baseFare = taxi99_baseFare, taxi99_fixedCost = taxi99_fixedCost, taxi99_costPerMinute = taxi99_costPerMinute, taxi99_costPerKM = taxi99_costPerKM, taxi99_distancePerRun = taxi99_distancePerRun, taxi99_timePerRun = taxi99_timePerRun, taxi99_dailyCost = taxi99_dailyCost, taxi99_monthlyCost = taxi99_monthlyCost, taxi99_annualCost = taxi99_annualCost, taxi99_totalCost = taxi99_totalCost)
+        #html = render_template('user/activate.html', personName=user.driverName, annualSpendWithTheCar=annualSpendWithTheCar, annualSpendWithUber=annualSpendWithUber)
         subject = "Resultado: E ai, o que vale mais a pena? Carro ou Uber?"
 
 
@@ -67,7 +104,7 @@ def calculator():
         #subject = "Please confirm your email"
         send_email(user.email, subject,html)
 
-        login_user(user)
+        #login_user(user)
         flash('A confirmation email has been sent via email', 'success')
 
         return redirect(url_for('user.calculator'))
