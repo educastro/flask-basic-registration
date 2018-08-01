@@ -17,7 +17,7 @@ from project.token import generate_confirmation_token, confirm_token
 from project import db, bcrypt
 from project.email import send_email
 from project.decorators import check_confirmed
-from .forms import LoginForm, RegisterForm, ChangePasswordForm
+#from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
 
 
