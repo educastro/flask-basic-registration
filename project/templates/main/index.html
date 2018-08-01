@@ -5,4 +5,108 @@
 
 <h3>Para que possamos chegar a uma resposta para essa pergunta precisamos que você preencha os campos abaixo:</h3>
 
+<br>
+
+<div id="form" class="panel-group">
+  <form class="form-signin" role="form" method="post" action="">
+    {{ form.csrf_token }}
+    
+    <div id="aboutThePerson" class="login-panel panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sobre você</h3>
+      </div>
+      
+      <div class="panel-body">
+        <h4>Antes de começarmos, qual o seu nome?</h4>
+        {{ form.driverName(placeholder="") }}
+        <br>
+      </div>
+
+    </div>
+
+    <br>
+
+    <div id="aboutTheCar" class="login-panel panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sobre o seu carro</h3>
+      </div>
+      
+      <div class="panel-body">
+        <h4>Atualmente, quanto ele custa?</h4>
+        {{ form.carPrice(placeholder="")}}
+        <br> 
+
+        <h4>E qual o consumo médio (km/l) no dia-a-dia?</h4>
+        {{ form.medianConsumption(placerholder="")}}
+        <br>
+
+        <h4>Quantos kilometros por dia você costuma andar, em média?</h4>
+        {{ form.medianDistance(placerholder="")}}
+        <br>
+
+      </div>
+
+    </div>
+
+    <div id="aboutTheCosts" class="login-panel panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sobre o seu carro</h3>
+      </div>
+
+      <div class="panel-body">
+
+        <h4>Quanto está custando o litro da gasolina na sua cidade?</h4>
+        {{ form.gasPrice(placerholder="")}}
+        <br>
+
+        <h4>Quanto você gasta de IPVA por ano?</h4>
+        {{ form.taxesPrice(placeholder="")}}
+        <br>
+
+        <h4>Quanto você gasta por ano com a manutenção do seu carro? (revisões, etc)</h4>
+        {{ form.maintenancePrice(placerholder="")}}
+        <br>
+
+        <h4>Quanto você gasta de seguro por ano? Se não possui seguro, favor inserir o valor 0.</h4>
+        {{ form.securePrice(placeholder="")}}
+        <br>
+
+        <h4>Você costuma levar multas? Se sim, quanto por ano precisa pagar com as infrações?</h4>
+        {{ form.penaltiesPrice(placerholder="")}}
+        <br>
+
+        <h4>Você costuma gastar dinheiro com estacionamento? Se sim, quanto por mês?</h4>
+        {{ form.parkingPrice(placerholder="")}}
+        <br>
+      </div>
+    </div>
+
+    <div id="lastPart" class="login-panel panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Finalmente chegamos ao fim! Estamos processando as suas informações e lhe encaminharemos o resultado da estimativa de quanto você gasta com seu carro e quanto passaria a gastar utilizando plataformas como Táxi, Uber, Cabify ou 99.</h3> 
+        <h4> Para que possa recebê-lo, precisamos dos seguintes dados:</h4>
+      </div>
+
+      <div class="panel-body">
+  
+        <h4>Qual o seu email?</h4>
+        {{ form.email(placeholder="email") }}
+        <span class="error">
+            {% if form.email.errors %}
+              {% for error in form.email.errors %}
+                {{ error }}
+              {% endfor %}
+            {% endif %}
+          </span> 
+      </div>
+    </div>
+    
+    </p>
+    <button class="btn btn-success" type="submit">Register!</button>
+    <br><br>
+    <p>Already have an account? <a href="/login">Sign in</a>.</p>
+  </form>
+
+</div>
+
 {% endblock %}

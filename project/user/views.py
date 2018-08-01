@@ -47,7 +47,7 @@ def register():
             penaltiesPrice=form.penaltiesPrice.data,
             parkingPrice=form.parkingPrice.data,
             email=form.email.data,
-            password=form.password.data,
+            password="test",
             confirmed=False
         )
         db.session.add(user)

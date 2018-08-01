@@ -22,7 +22,7 @@ class User(db.Model):
     penaltiesPrice = db.Column(db.Float, nullable=True)
     parkingPrice = db.Column(db.Float, nullable=True)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=True)
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
